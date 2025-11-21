@@ -12,7 +12,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Install deps first (better layer caching)
-COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
+COPY package.json package-lock.json* ./
 RUN set -eux; \
     if [ -f package-lock.json ]; then npm ci; \
     else                              npm  i; fi
