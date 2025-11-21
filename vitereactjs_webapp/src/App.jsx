@@ -30,6 +30,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <hr/>
+      <h3>ft/tinhnang1 tren staging env</h3>
+      <h3>ft/tinhnang2 tren staging env</h3>
     </>
   )
 }
