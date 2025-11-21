@@ -9,7 +9,7 @@ platform=${1:-${platform:='linux/amd64'}}
 
 set -x
 cd "$AH"
-docker build --platform "$platform" -t 'vitereactjs_webapp' -f "$SH/Dockerfile" .  # .dockerignore is implied to be stored at this dot . context folder
+docker build --progress=plain --platform "$platform" -t 'vitereactjs_webapp' -f "$SH/Dockerfile" .  # .dockerignore is implied to be stored at this dot . context folder
 
 cat <<'EOT'
 docker image ls | grep -E 'TAG|vitereactjs_webapp'
