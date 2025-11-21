@@ -31,6 +31,7 @@ function App() {
 
       <hr/>
       <h3>ft/tinhnang1 tren staging env</h3>
+      <h3>ft/tinhnang2 tren staging env</h3>
     </>
   )
 }
