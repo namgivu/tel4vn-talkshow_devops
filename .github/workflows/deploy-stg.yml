@@ -51,6 +51,10 @@ jobs:
             b=${{ github.ref_name }}
             git fetch origin $b && git switch -C $b origin/$b
             
+            ls -lah 
+            pwd
+            echo
+            
             DOCKER_IMAGE_REPO=${{ secrets.DOCKERHUB_USERNAME }} \
             DOCKER_IMAGE_TAG=latest \
             docker compose -f vitereactjs_webapp/zdocker/docker-compose.yml  up -d --build --remove-orphans
