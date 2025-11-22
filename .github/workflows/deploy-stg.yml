@@ -3,7 +3,7 @@ name: ci-stg--vitereactjs_webapp
 on:
   push:
     branches: [deploy/stg]
-    paths:    [**]
+    paths:    [*]
   workflow_dispatch:  # allow manual trigger
 
 env:
