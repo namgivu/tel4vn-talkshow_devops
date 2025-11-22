@@ -48,7 +48,6 @@ jobs:
             set -e  # halted if err
             set -x  # print the executed cmd
             
-            cd xstar-automation 
             b=${{ github.ref_name }}
             git fetch origin $b && git switch -C $b origin/$b
             
