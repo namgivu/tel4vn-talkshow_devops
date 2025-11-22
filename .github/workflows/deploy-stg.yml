@@ -55,6 +55,9 @@ jobs:
             pwd
             echo
             
+            cd _2_devops_talkshow/
+            cd                    talkshow_devops/
+            
             DOCKER_IMAGE_REPO=${{ secrets.DOCKERHUB_USERNAME }} \
             DOCKER_IMAGE_TAG=latest \
             docker compose -f vitereactjs_webapp/zdocker/docker-compose.yml  up -d --build --remove-orphans
