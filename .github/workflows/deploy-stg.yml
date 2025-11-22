@@ -39,6 +39,7 @@ jobs:
 
       - name: Deploy
         run: |
+          mkdir                                                     -p ~/.ssh
           echo "${{ secrets.STAGING_SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/private_key
           chmod                                                    600 ~/.ssh/private_key
           ssh -o StrictHostKeyChecking=no -i                           ~/.ssh/private_key ${{ secrets.STAGING_SSH_USER }}@${{ secrets.STAGING_SSH_HOST }} << EOSSH
