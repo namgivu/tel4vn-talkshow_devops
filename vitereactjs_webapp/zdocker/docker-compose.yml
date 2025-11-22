@@ -1,0 +1,10 @@
+services:
+
+  vitereactjs_webapp:
+    #    :               ${VAR:+VAL} ie if VAR is set n notempty, use it, otherwise use VAL
+    image: ${DOCKER_IMAGE_REPO:+$DOCKER_IMAGE_REPO/}vitereactjs_webapp:${DOCKER_IMAGE_TAG:-latest}
+    ports:
+      - '${PORT:-8000}:80'
+    restart: unless-stopped
+    #
+    # healthcheck:  # use Dockerfile's HEALTHCHECK
