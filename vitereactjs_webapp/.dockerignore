@@ -1,0 +1,17 @@
+# Ignore local dependencies and build output
+node_modules
+npm-debug.log*
+
+# Vite build output (we rebuild inside container)
+dist
+
+# VCS and editor stuff
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+
+# Docker
+Dockerfile
+.dockerignore
