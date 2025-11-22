@@ -9,6 +9,7 @@ function App() {
   return (
     <>
       <h3>ft/p only on production env</h3>
+      <h3>ft/p22 only on production env</h3>
 
       <div>
         <a href="https://vite.dev" target="_blank">
