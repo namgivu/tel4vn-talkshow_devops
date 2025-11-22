@@ -1,0 +1,51 @@
+name: ci-stg--vitereactjs_webapp
+
+on:
+  push:
+    branches: [main]  #TODO syntax to catch push on any branch here
+    paths: [vitereactjs_webapp/**]
+  workflow_dispatch:  # allow manual trigger
+
+env:
+  # Docker Hub image naming
+  IMAGE_NAME: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/admin-web-staging
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build . --file frontend.Dockerfile --build-arg APP_NAME=admin-web --tag ${{ env.IMAGE_NAME }}:${{ github.sha }} --tag ${{ env.IMAGE_NAME }}:latest
+
+      - name: Push image
+        run: docker push ${{ env.IMAGE_NAME }}:latest
+
+      - name: Deploy
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private_key 
+          chmod                               600 ~/.ssh/private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.STAGING_SSH_USER }}@${{ secrets.STAGING_SSH_HOST }} << EOSSH
+            set -e  # halted if err
+            set -x  # print the executed cmd
+            
+            cd xstar-automation 
+            git checkout main 
+            git fetch --all 
+            git reset --hard 
+            git pull --rebase 
+            gcloud auth configure-docker ${{ secrets.STAGING_REGION }}-docker.pkg.dev --quiet 
+            echo "${{ vars.STAGING_ADMIN_WEB_ENV }}" > ./apps/admin-web/.env 
+            sed -i "s#ADMIN_WEB_IMAGE=.*#ADMIN_WEB_IMAGE=${{ env.IMAGE_NAME }}:latest#" .env 
+            docker compose --profile admin-web up -d 
+            docker system prune --volumes -f
+          EOSSH
