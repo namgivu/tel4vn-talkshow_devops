@@ -56,4 +56,5 @@ jobs:
           EOSSH
 
       #TODO - name: Testing w/ curl - wait for the compose up container healthy then curl to its port 8000 make sure succeeded
+
       #TODO ci to rollback to a stable version
