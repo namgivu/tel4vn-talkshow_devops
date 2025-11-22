@@ -14,8 +14,8 @@ docker build --progress=plain --platform "$platform" -t 'vitereactjs_webapp' -f 
 cat <<'EOT'
 docker image ls | grep -E 'TAG|vitereactjs_webapp'
 
-c=vitereactjs_webapp_c ; docker rm -f $c ; docker run --name $c -p88:80 -d vitereactjs_webapp ; echo;docker ps | grep $c
+c=vitereactjs_webapp_c ; docker rm -f $c ; docker run --name $c -p8000:80 -d vitereactjs_webapp ; echo;docker ps | grep $c
 
 open web browser
-http://localhost:88
+http://localhost:8000
 EOT
